@@ -2,15 +2,18 @@
 03_event_characterization.py
 Caracteriza el evento del 11 de marzo de 2026 en el contexto
 de la distribucion historica de precipitacion diaria.
+Incluye analisis del contexto meteorologico (granizo/conveccion).
 """
 
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
 import seaborn as sns
 
 from config import (
-    LOCATION_NAME, EVENT_DATE,
+    LOCATION_NAME, EVENT_DATE, ELEVATION,
+    EVENT_HAD_HAIL, EVENT_DESCRIPTION,
     DATA_DIR, PLOTS_DIR, ensure_dirs,
 )
 
@@ -58,6 +61,34 @@ def characterize_event(hist, event_precip):
     print(f"El evento equivale al {event_precip / march_monthly_mean * 100:.0f}% "
           f"del total mensual promedio de marzo")
 
+    # Contexto meteorologico: granizo
+    if EVENT_HAD_HAIL:
+        print_hail_context(event_precip)
+
+
+def print_hail_context(event_precip):
+    """Imprime analisis del contexto meteorologico asociado al granizo."""
+    print("\n--- CONTEXTO METEOROLOGICO: GRANIZO ---")
+    print(f"Descripcion: {EVENT_DESCRIPTION}")
+    print()
+    print("Implicaciones del granizo para el analisis:")
+    print(f"  1. INTENSIDAD: El granizo confirma que esta fue una tormenta")
+    print(f"     convectiva severa, no solo lluvia estratiforme. La intensidad")
+    print(f"     instantanea (mm/hora) probablemente fue muy alta (>50 mm/h).")
+    print(f"  2. ESCALA ESPACIAL: Las tormentas convectivas con granizo son")
+    print(f"     localizadas (5-20 km). La precipitacion en la Parcelacion")
+    print(f"     San Luis pudo ser significativamente mayor que en estaciones")
+    print(f"     meteorologicas cercanas o que el promedio del grid ERA5 (25 km).")
+    print(f"  3. SUBESTIMACION: Los datos ERA5/reanálisis probablemente")
+    print(f"     subestiman este tipo de eventos locales. El periodo de retorno")
+    print(f"     real del evento puede ser MAYOR que el estimado con ERA5.")
+    print(f"  4. RIESGO COMPUESTO: Granizo + lluvia intensa = mayor riesgo de")
+    print(f"     dano (impacto mecanico + inundacion subita + obstruccion de")
+    print(f"     drenajes por acumulacion de hielo).")
+    print(f"  5. ALTITUD ({ELEVATION}m): A esta elevacion, la distancia al nivel")
+    print(f"     de congelacion es menor, facilitando que el granizo llegue")
+    print(f"     al suelo sin derretirse completamente.")
+
 
 def plot_histogram(hist, event_precip):
     """Histograma de precipitacion diaria con el evento marcado."""
@@ -66,15 +97,23 @@ def plot_histogram(hist, event_precip):
 
     pct = (valid["precipitation_mm"] <= event_precip).mean() * 100
 
+    hail_label = " + granizo" if EVENT_HAD_HAIL else ""
     fig, ax = plt.subplots(figsize=(10, 5))
     ax.hist(rainy, bins=80, color="#3498db", alpha=0.7, edgecolor="white", log=True)
     ax.axvline(event_precip, color="red", linestyle="--", linewidth=2.5,
-               label=f"Evento {EVENT_DATE}: {event_precip:.1f} mm")
+               label=f"Evento {EVENT_DATE}: {event_precip:.1f} mm{hail_label}")
     ax.annotate(f"Percentil {pct:.1f}%",
                 xy=(event_precip, ax.get_ylim()[1] * 0.3),
                 xytext=(event_precip + 5, ax.get_ylim()[1] * 0.5),
                 fontsize=11, color="red",
                 arrowprops=dict(arrowstyle="->", color="red"))
+
+    if EVENT_HAD_HAIL:
+        ax.annotate("Con granizo\n(conveccion severa)",
+                     xy=(event_precip, ax.get_ylim()[1] * 0.01),
+                     xytext=(event_precip - 30, ax.get_ylim()[1] * 0.005),
+                     fontsize=9, color="darkred", fontstyle="italic",
+                     bbox=dict(boxstyle="round,pad=0.3", facecolor="#ffe0e0", alpha=0.8))
 
     ax.set_xlabel("Precipitacion diaria (mm)")
     ax.set_ylabel("Frecuencia (escala log)")

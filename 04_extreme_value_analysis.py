@@ -12,6 +12,7 @@ import seaborn as sns
 
 from config import (
     LOCATION_NAME, EVENT_DATE, MIN_VALID_DAYS,
+    EVENT_HAD_HAIL,
     DATA_DIR, PLOTS_DIR, ensure_dirs,
 )
 
@@ -158,6 +159,18 @@ def event_return_period(event_precip, gev_params, gum_params):
     print(f"\nInterpretacion: Un evento de {event_precip:.1f} mm tiene una probabilidad")
     print(f"de ~{p_gev * 100:.2f}% de ocurrir (o ser superado) en cualquier anio dado.")
 
+    if EVENT_HAD_HAIL:
+        print(f"\n--- NOTA SOBRE EL GRANIZO ---")
+        print(f"El evento incluyo granizo, lo cual indica conveccion severa.")
+        print(f"CAVEAT IMPORTANTE: Los datos ERA5 (resolucion ~25 km) tienden a")
+        print(f"subestimar eventos convectivos localizados. La precipitacion real")
+        print(f"en la Parcelacion San Luis pudo haber sido significativamente mayor")
+        print(f"que lo que captura el grid de reanálisis. Por lo tanto:")
+        print(f"  - El periodo de retorno estimado ({t_gev:.1f} anios) es un LIMITE")
+        print(f"    INFERIOR. El periodo de retorno real puede ser 2-5x mayor.")
+        print(f"  - Para un analisis mas preciso, se recomienda usar datos de")
+        print(f"    estaciones locales (SIATA) en lugar de reanálisis ERA5.")
+
     return t_gev, t_gum
 
 
@@ -255,7 +268,7 @@ def plot_return_period_curve(annual_maxima, gev_params, gum_params,
 
     # Anotacion del evento
     ax.annotate(
-        f"Evento {EVENT_DATE}\n{event_precip:.1f} mm\nT = {t_event_gev:.1f} anios",
+        f"Evento {EVENT_DATE}\n{event_precip:.1f} mm{' + granizo' if EVENT_HAD_HAIL else ''}\nT = {t_event_gev:.1f} anios",
         xy=(t_event_gev, event_precip),
         xytext=(t_event_gev * 2, event_precip * 0.75),
         fontsize=10, color="red", fontweight="bold",
@@ -282,7 +295,7 @@ def plot_annual_maxima_series(annual_maxima, event_precip):
     ax.bar(annual_maxima.index, annual_maxima.values, color="#3498db",
            alpha=0.7, edgecolor="white")
     ax.axhline(event_precip, color="red", linestyle="--", linewidth=2,
-               label=f"Evento {EVENT_DATE}: {event_precip:.1f} mm")
+               label=f"Evento {EVENT_DATE}: {event_precip:.1f} mm{' + granizo' if EVENT_HAD_HAIL else ''}")
     ax.axhline(annual_maxima.mean(), color="gray", linestyle=":", linewidth=1)
     ax.text(annual_maxima.index[-1] + 1, annual_maxima.mean(),
             f"Media: {annual_maxima.mean():.0f} mm", va="center", fontsize=9, color="gray")

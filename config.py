@@ -16,6 +16,18 @@ TIMEZONE = "America/Bogota"
 
 # --- Evento de interes ---
 EVENT_DATE = "2026-03-11"
+EVENT_HAD_HAIL = True  # Se reporto granizo durante el evento
+
+# --- Contexto meteorologico del evento ---
+EVENT_DESCRIPTION = (
+    "Aguacero muy fuerte con granizo. La presencia de granizo indica "
+    "actividad convectiva intensa con corrientes ascendentes lo suficientemente "
+    "fuertes para sostener particulas de hielo (tipicamente >10 m/s). "
+    "A 2200 msnm en los Andes tropicales, las tormentas con granizo se asocian "
+    "a cumulonimbus con desarrollo vertical significativo (topes >12 km), "
+    "inestabilidad atmosferica pronunciada (alto CAPE), y convergencia de "
+    "humedad orografica en la ladera oriental del Valle de Aburra."
+)
 
 # --- Rango historico ---
 HIST_START = "1950-01-01"

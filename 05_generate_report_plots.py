@@ -12,6 +12,7 @@ import seaborn as sns
 
 from config import (
     LAT, LON, ELEVATION, LOCATION_NAME, EVENT_DATE, MIN_VALID_DAYS,
+    EVENT_HAD_HAIL,
     DATA_DIR, PLOTS_DIR, ensure_dirs,
 )
 
@@ -115,7 +116,8 @@ def main():
     ax3.plot(t_smooth, rl_gum, "g--", linewidth=1.5, alpha=0.7, label="Gumbel")
     ax3.scatter(t_emp, sorted_data, c="red", edgecolor="white", s=40, zorder=5)
     ax3.axhline(event_precip, color="red", linestyle="--", linewidth=1.5, alpha=0.7)
-    ax3.annotate(f"T = {t_event:.0f} anios",
+    hail_note = "\n(con granizo)" if EVENT_HAD_HAIL else ""
+    ax3.annotate(f"T = {t_event:.0f} anios{hail_note}",
                  xy=(t_event, event_precip),
                  xytext=(t_event * 2.5, event_precip * 0.8),
                  fontsize=10, color="red", fontweight="bold",
@@ -132,7 +134,7 @@ def main():
     ax4.bar(annual_maxima.index, annual_maxima.values, color="#3498db",
             alpha=0.7, edgecolor="white")
     ax4.axhline(event_precip, color="red", linestyle="--", linewidth=2,
-                label=f"Evento: {event_precip:.1f} mm")
+                label=f"Evento: {event_precip:.1f} mm{' + granizo' if EVENT_HAD_HAIL else ''}")
     ax4.axhline(annual_maxima.mean(), color="gray", linestyle=":", linewidth=1)
     ax4.set_xlabel("Anio")
     ax4.set_ylabel("Precipitacion max. diaria (mm)")
