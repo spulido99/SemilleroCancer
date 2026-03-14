@@ -1,0 +1,102 @@
+======================================================================
+REPORTE: PERIODOS DE RETORNO DE LLUVIA EXTREMA CON GRANIZO
+======================================================================
+
+Ubicacion:  Parcelacion San Luis, Loma del Escobero, Envigado, Antioquia
+Elevacion:  2200 m s.n.m.
+Evento de referencia: 2026-03-11 (~78 mm de lluvia con granizo abundante)
+Datos analizados: 76 anos de registros
+
+======================================================================
+1. FRECUENCIA GENERAL DEL GRANIZO
+======================================================================
+
+En la Parcelacion San Luis, a 2200m de altitud, el granizo es un
+fenomeno relativamente comun:
+
+  - Dias con granizo por ano: ~3
+  - Temporada pico: marzo-abril y octubre-noviembre
+  - Razon: a 2200m, el nivel de congelacion esta a solo
+    ~2550m por encima. El granizo tiene menos distancia
+    para derretirse antes de llegar al suelo.
+
+======================================================================
+2. PERIODOS DE RETORNO POR TIPO DE EVENTO
+======================================================================
+
+La siguiente tabla muestra cada cuantos anos esperariamos ver un evento
+segun la intensidad de lluvia, solo y combinado con granizo:
+
+    Umbral |    Lluvia sola |    Lluvia + granizo | Interpretacion                
+--------------------------------------------------------------------------------
+     30 mm |        ~1 anos |             ~1 anos | Lluvia moderada               
+     40 mm |        ~1 anos |             ~2 anos | Lluvia fuerte                 
+     50 mm |        ~1 anos |             ~3 anos | Lluvia muy fuerte             
+     60 mm |        ~1 anos |             ~6 anos | Aguacero                      
+     70 mm |        ~2 anos |             ~8 anos | Aguacero intenso              
+     78 mm |        ~2 anos |            ~25 anos | >>> EVENTO 11-MAR <<<          ***
+     90 mm |        ~5 anos |            ~38 anos | Aguacero extremo              
+    100 mm |       ~11 anos |            ~76 anos | Lluvia excepcional            
+
+======================================================================
+3. RESPUESTA PARA LOS RESIDENTES
+======================================================================
+
+Pregunta: "Cada cuantos anos esperariamos una tormenta como la del
+           2026-03-11 (aguacero muy fuerte con granizo abundante)?"
+
+Respuesta:
+
+  Un aguacero de ~78 mm (como el registrado el 2026-03-11) ocurre
+  aproximadamente 1 vez cada 2 anos.
+
+  Sin embargo, que ese aguacero venga acompanado de GRANIZO ABUNDANTE
+  es menos frecuente: aproximadamente 1 vez cada 25 anos.
+
+  En resumen:
+
+  +-----------------------------------------------+-------------------+
+  | Tipo de evento                                | Frecuencia        |
+  +-----------------------------------------------+-------------------+
+  | Granizo leve (cualquier intensidad)            | ~3 veces/ano     |
+  | Aguacero fuerte (>=60mm) con granizo           | ~1 cada 6 anos    |
+  | Tormenta como la del 2026-03-11 (>=78mm+granizo) | ~1 cada 25 anos   |
+  | Aguacero extremo (>=100mm) con granizo         | >76 anos          |
+  +-----------------------------------------------+-------------------+
+
+======================================================================
+4. POR QUE GRANIZA MAS A ESTA ALTITUD
+======================================================================
+
+La Parcelacion San Luis esta a 2200m sobre el nivel del mar. El
+nivel de congelacion en esta zona tropical se encuentra tipicamente a
+~4750m, es decir, a solo ~2550m por encima.
+
+Compare con el centro de Medellin (~1500m):
+  - En San Luis (2200m): distancia al nivel de congelacion = ~2550m
+  - En Medellin (1500m): distancia al nivel de congelacion = ~3250m
+
+El granizo que se forma en las nubes tiene 700m MENOS de
+recorrido para derretirse cuando cae sobre San Luis. Por eso llega
+mas grande y con mas frecuencia.
+
+======================================================================
+5. NOTA METODOLOGICA
+======================================================================
+
+Este analisis se basa en 76 anos de datos de precipitacion
+combinados con proxies atmosfericos de granizo (CAPE, nivel de congelacion,
+fraccion convectiva) calibrados con:
+
+  - Pena-Beltran & Pabon-Caicedo (2020): climatologia de granizadas en Colombia
+  - Red SIATA del Valle de Aburra
+  - Climatologia ERA5 para zona ecuatorial andina
+
+Los periodos de retorno son estimaciones empiricas. Para un calculo mas
+preciso se necesitarian registros sistematicos de granizo (disdrometros,
+radar) de al menos 30 anos.
+
+======================================================================
+Generado automaticamente por el proyecto SemilleroCancer
+Fecha de generacion: 2026-03-14
+======================================================================
